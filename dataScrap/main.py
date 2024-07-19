@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 
-htmlLoc = r'D:\Documentos\SPJain\Term2\Intro\Project\html\\'
+htmlLoc = r'D:\s\SPJain\Term2\Intro\Project\html\\'
 
 dataDict = {"Price": [],
             "Bedrooms": [],
