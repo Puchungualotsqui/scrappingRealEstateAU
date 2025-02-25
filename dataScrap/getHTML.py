@@ -9,8 +9,9 @@ def moveToNormalize(x, y):
     return
 
 
-def openProgram(name):
+def openProgram(name, timeWait):
     pyautogui.press('win')
+    time.sleep(timeWait)
     pyautogui.write(name, interval=0.1)
     pyautogui.press('enter')
     return
@@ -19,8 +20,8 @@ def getHTML(url, folderLocation, newFileName):
 
     time.sleep(0.1)
 
-    openProgram('Opera')
-    time.sleep(0.25)
+    openProgram('Opera', 0.5)
+    time.sleep(1)
 
     pyautogui.write(url, interval=0.01)
     pyautogui.press('enter')
@@ -28,11 +29,13 @@ def getHTML(url, folderLocation, newFileName):
 
     # Open inspect element
     pyautogui.hotkey('ctrl', 'shift', 'c')
-    time.sleep(1)
+    time.sleep(0.5)
 
     moveToNormalize(0.9, 0.19)
+    time.sleep(0.1)
+
     pyautogui.click(button='right')
-    time.sleep(1)
+    time.sleep(0.5)
 
     # Copy HTML
     pyautogui.press('down', presses=6, interval=0.1)
@@ -44,7 +47,7 @@ def getHTML(url, folderLocation, newFileName):
     time.sleep(0.1)
 
     # Open program to page HTML
-    openProgram('Sublime Text')
+    openProgram('Sublime Text', 0.5)
     time.sleep(0.1)
 
     pyautogui.hotkey('ctrl', 'n')
@@ -74,12 +77,15 @@ def getHTML(url, folderLocation, newFileName):
     pyautogui.click()
     time.sleep(0.1)
 
-
+# If you apply filters in the scrapping you need to split the URL
 folder = r'D:\Documentos\SPJain\Term2\Intro\Project\html'
-url = 'https://www.realestate.com.au/buy/list-'
-newFileName = ('page'
-               ''
-               '')
+url = 'https://www.realestate.com.au/buy/in-{},+nsw/list-{}?misc=ex-no-display-price&source=refinement'
+suburb = 'Zetland'
 
-for i in range(1, 5):
-    getHTML(url+str(i), folder, newFileName+str(i)+str('.txt'))
+newFileName = 'page'
+pages = 12
+numberOfFiles = 1051
+
+for i in range(1, pages+1):
+    print(i)
+    getHTML(url.format(suburb,i), folder, newFileName + str(i+numberOfFiles) + str('.txt'))
